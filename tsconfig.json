@@ -1,0 +1,18 @@
+{
+    "version": "1.8",
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "removeComments": false,
+        "preserveConstEnums": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true
+    },
+    "exclude": [
+        "dist/",
+        "scripts/",
+        "src/vendor/"
+    ]
+}

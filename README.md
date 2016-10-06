@@ -1,8 +1,14 @@
 # twitchbot
 A Twitchbot checking your twitch channel
 
-gulp
+How to set it up:
+* Clone from git to a directory
+* install nodejs
 
-npm start
+```
+$ npm install
+$ gulp
+$ npm start
+```
 
-http://brianflove.com/2016/03/29/typescript-express-node-js/
+more info: http://brianflove.com/2016/03/29/typescript-express-node-js/

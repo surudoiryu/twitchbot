@@ -5,6 +5,37 @@
 var app = require("../dist/app/app");
 var debug = require("debug")("express:server");
 var http = require("http");
+var tmi = require("tmi.js");
+
+var tmiOptions = {
+  options: {
+    debug: true
+  },
+  connection: {
+    cluster: "aws",
+    reconnect: true
+  },
+  identity: {
+    username: "", // Twitchname of your bot (create a profile)
+    password: "" // Get your Token here: http://twitchapps.com/tmi/
+  },
+  channels: [""]
+}
+
+var botClient = new tmi.client(tmiOptions);
+botClient.connect();
+
+botClient.on("chat", function(channel, user, message, self){
+  if( message === "!twitter" ){
+    botClient.action(channels[0], "twitter.com/surudoiryu");
+  }
+
+  botClient.action(channel[0], user['display-name']+" hello there!");
+})
+
+botClient.on('connected', function(address, port){ 
+  botClient.action(channels[0], "Hello, i'm a bot!");
+});
 
 //get port from environment and store in Express.
 var port = normalizePort(process.env.PORT || 8080);

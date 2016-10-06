@@ -10,6 +10,7 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     uglify = require('gulp-uglify'),
     cleanCss = require('gulp-clean-css');
+    jade = require('gulp-jade');
 
 // Config
 var config = {
@@ -20,7 +21,7 @@ var config = {
             'src/app/**/*.ts'
         ],
         sass: 'src/sass/**/*.scss',
-        templates: 'src/app/components/**/*.html',
+        templates: 'src/views/*.jade',
         images: 'src/images/',
         vendor: 'src/vendor/',
         npm: 'node_modules/',
@@ -33,7 +34,7 @@ var config = {
         js: 'dist/js/',
         fonts: 'dist/fonts/',
         typescript: 'dist/app/',
-        templates: 'dist/views/',
+        templates: 'dist/app/views/',
         messages: 'dist/messages/',
         images: {
             application: 'dist/images/',
@@ -47,7 +48,7 @@ var config = {
 };
 
 //region Application Typescript (Angular2)
-gulp.task('typescript', ['tpl'], function(){
+gulp.task('typescript', ['jade'], function(){
     return gulp
         .src(config.source.typescript)
         .pipe(gulpSlash())
@@ -91,13 +92,13 @@ gulp.task('images:watch', function () {
 //endregion
 
 //region Application Templates (Angular2)
-gulp.task('tpl', function () {
+gulp.task('jade', function () {
     return gulp.src(config.source.templates)
-        .pipe(debug({ title: 'tpl:' }))
+        .pipe(debug({ title: 'jade:' }))
         .pipe(gulp.dest(config.destination.templates));
 });
-gulp.task('tpl:watch', function () {
-    gulp.watch(config.source.templates, ['tpl']);
+gulp.task('jade:watch', function () {
+    gulp.watch(config.source.templates, ['jade']);
 });
 //endregion
 
@@ -156,7 +157,7 @@ gulp.task('vendor', function () {
 gulp.task('default', [
     'typescript',
     'images',
-    'tpl',
+    'jade',
     'sass',
     'messages'
 ]);
@@ -164,10 +165,10 @@ gulp.task('default', [
 gulp.task('watch', [
     'typescript',
     'sass',
-    'tpl',
+    'jade',
     'messages',
     'typescript:watch',
     'sass:watch',
-    'tpl:watch',
+    'jade:watch',
     'messages:watch'
 ]);

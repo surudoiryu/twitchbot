@@ -19,3 +19,5 @@ $ gulp
 -- Open your personal twitch channel --
 $ npm start
 ```
+
+Twitch API: https://docs.tmijs.org/v1.1.1/Commands.html

@@ -6,7 +6,9 @@ How to set it up:
 * install nodejs
 
 Create a twitch account for your bot here: https://www.twitch.tv/ and log in  
-Get your bot token here: http://twitchapps.com/tmi/
+Get your bot token here: http://twitchapps.com/tmi/  
+
+Make sure you also got a personal account, where the bot can connect to.  
 
 Duplicate the .env_sample file and rename it too: .env  
 Insert the values in the .env file
@@ -14,7 +16,6 @@ Insert the values in the .env file
 ```
 $ npm install
 $ gulp
+-- Open your personal twitch channel --
 $ npm start
 ```
-
-more info: http://brianflove.com/2016/03/29/typescript-express-node-js/

@@ -2,6 +2,7 @@
 "use strict";
 
 //module dependencies.
+var app = require("dotenv").config();
 var app = require("../dist/app/app");
 var debug = require("debug")("express:server");
 var http = require("http");
@@ -16,10 +17,10 @@ var tmiOptions = {
     reconnect: true
   },
   identity: {
-    username: "", // Twitchname of your bot (create a profile)
-    password: "" // Get your Token here: http://twitchapps.com/tmi/
+    username: process.env.TWITCH_USER, // Twitchname of your bot (create a profile)
+    password: process.env.TWITCH_PASS // Get your Token here: http://twitchapps.com/tmi/
   },
-  channels: [""]
+  channels: [ "#" + process.env.TWITCH_CHANNEL ]
 }
 
 var botClient = new tmi.client(tmiOptions);
@@ -27,14 +28,16 @@ botClient.connect();
 
 botClient.on("chat", function(channel, user, message, self){
   if( message === "!twitter" ){
-    botClient.action(channels[0], "twitter.com/surudoiryu");
+    botClient.action(channel, "twitter.com/mytwitter");
   }
-
-  botClient.action(channel[0], user['display-name']+" hello there!");
+  if( message === "hi" || message === "hello" ){
+    botClient.action(channel, "Hello there, "+user['display-name']+"!");
+  }
 })
 
 botClient.on('connected', function(address, port){ 
-  botClient.action(channels[0], "Hello, i'm a bot!");
+  console.log("bot is connected to: "+tmiOptions.channels[0]);
+  botClient.action(tmiOptions.channels[0], "Hello, i'm a bot!");
 });
 
 //get port from environment and store in Express.

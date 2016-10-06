@@ -5,6 +5,12 @@ How to set it up:
 * Clone from git to a directory
 * install nodejs
 
+Create a twitch account for your bot
+Get your bot token here: http://twitchapps.com/tmi/
+
+Duplicate the .env_sample file and rename it too: .env
+Insert the values in the .env file
+
 ```
 $ npm install
 $ gulp

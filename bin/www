@@ -2,8 +2,8 @@
 "use strict";
 
 //module dependencies.
-var app = require("dotenv").config();
-var app = require("../dist/app/app");
+var dotenv = require("dotenv").config();
+var app = require("../app");
 var debug = require("debug")("express:server");
 var http = require("http");
 var tmi = require("tmi.js");
@@ -24,9 +24,36 @@ var tmiOptions = {
 }
 
 var botClient = new tmi.client(tmiOptions);
-botClient.connect();
+
+botClient.connect().then(function(data) {
+    // data returns [server, port]
+}).catch(function(err) {
+    console.log("could not connect to twitch irc");
+});
+
+botClient.on("join", function (channel, username, self) {
+    console.log(username+" entered the stream.");
+});
+botClient.on("part", function (channel, username, self) {
+    console.log(username+" left the stream.");
+});
+
+
+botClient.on("hosted", function (channel, username, self) {
+    console.log(username+" hosted our stream.");
+});
 
 botClient.on("chat", function(channel, user, message, self){
+
+  if (botClient.isMod(tmiOptions.channels[0], user['display-name'])) {
+    
+    if( message === "slap" ){
+      botClient.action(channel, "SLAP, "+user['display-name']+"!");
+      //display little animation
+    }
+
+  }
+
   if( message === "!twitter" ){
     botClient.action(channel, "twitter.com/mytwitter");
   }

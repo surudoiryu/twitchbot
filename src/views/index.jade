@@ -1,2 +1,10 @@
-h1 Hello World!
-p You did it, congratulations!
+doctype html
+html(lang="en")
+    head
+        title= "Twitch Bot - panels"
+        link(href='/css/style.css', rel='stylesheet', type='text/css')
+    body
+        div.left.column#chatwindow
+        div.right.column#wrapper
+            div.top.row#eventwindow
+            div.bottom.row#actionswindow

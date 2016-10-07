@@ -1,0 +1,33 @@
+.left {
+  left: 0; }
+
+.right {
+  right: 0; }
+
+.top {
+  top: 0; }
+
+.bottom {
+  bottom: 0; }
+
+.column {
+  width: 50%;
+  height: 100%;
+  position: absolute; }
+
+.row {
+  height: 50%; }
+
+#chatwindow {
+  background-color: #555555;
+  border: 1px solid #ffffff; }
+
+#eventwindow {
+  background-color: #00FF00;
+  border: 1px solid #ffffff; }
+
+#actionswindow {
+  background-color: #555555;
+  border: 1px solid #ffffff; }
+
+/*# sourceMappingURL=style.css.map */

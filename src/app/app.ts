@@ -36,10 +36,8 @@ class Server {
   constructor() {
     //create expressjs application
     this.app = express();
-
     //configure application
     this.config();
-
     //configure routes
     this.routes();
   }
@@ -53,23 +51,11 @@ class Server {
    */
   private config() {
     //configure jade
-    this.app.set("views", path.join(__dirname, "views"));
+    this.app.set("views", path.join(__dirname, "/dist/app/views"));
     this.app.set("view engine", "jade");
-
-    //mount logger
-    //this.app.use(logger("dev"));
-
-    //mount json form parser
     this.app.use(bodyParser.json());
-
-    //mount query string parser
     this.app.use(bodyParser.urlencoded({ extended: true }));
-
-    //add static paths
-    this.app.use(express.static(__dirname + "public"));
-    this.app.use(express.static(__dirname + "bower_components"));
-
-    // catch 404 and forward to error handler
+    this.app.use(express.static(__dirname + "/dist"));
     this.app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
       var error = new Error("Not Found");
       err.status = 404;
@@ -94,6 +80,10 @@ class Server {
 
     //home page
     router.get("/", index.index.bind(index.index));
+
+    router.get('/test', function(req, res) {
+      res.send('im the test page!'); 
+    });
 
     //use router middleware
     this.app.use(router);

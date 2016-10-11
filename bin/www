@@ -2,7 +2,8 @@
 "use strict";
 
 //module dependencies.
-var app = require("../dist/app/app");
+var dotenv = require("dotenv").config();
+var app = require("../app");
 var debug = require("debug")("express:server");
 var http = require("http");
 var tmi = require("tmi.js");
@@ -16,25 +17,54 @@ var tmiOptions = {
     reconnect: true
   },
   identity: {
-    username: "", // Twitchname of your bot (create a profile)
-    password: "" // Get your Token here: http://twitchapps.com/tmi/
+    username: process.env.TWITCH_USER, // Twitchname of your bot (create a profile)
+    password: process.env.TWITCH_PASS // Get your Token here: http://twitchapps.com/tmi/
   },
-  channels: [""]
+  channels: [ "#" + process.env.TWITCH_CHANNEL ]
 }
 
 var botClient = new tmi.client(tmiOptions);
-botClient.connect();
+
+botClient.connect().then(function(data) {
+    // data returns [server, port]
+}).catch(function(err) {
+    console.log("could not connect to twitch irc");
+});
+
+botClient.on("join", function (channel, username, self) {
+    console.log(username+" entered the stream.");
+});
+botClient.on("part", function (channel, username, self) {
+    console.log(username+" left the stream.");
+});
+
+
+botClient.on("hosted", function (channel, username, self) {
+    console.log(username+" hosted our stream.");
+});
 
 botClient.on("chat", function(channel, user, message, self){
-  if( message === "!twitter" ){
-    botClient.action(channels[0], "twitter.com/surudoiryu");
+
+  if (botClient.isMod(tmiOptions.channels[0], user['display-name'])) {
+    
+    if( message === "slap" ){
+      botClient.action(channel, "SLAP, "+user['display-name']+"!");
+      //display little animation
+    }
+
   }
 
-  botClient.action(channel[0], user['display-name']+" hello there!");
+  if( message === "!twitter" ){
+    botClient.action(channel, "twitter.com/mytwitter");
+  }
+  if( message === "hi" || message === "hello" ){
+    botClient.action(channel, "Hello there, "+user['display-name']+"!");
+  }
 })
 
 botClient.on('connected', function(address, port){ 
-  botClient.action(channels[0], "Hello, i'm a bot!");
+  console.log("bot is connected to: "+tmiOptions.channels[0]);
+  botClient.action(tmiOptions.channels[0], "Hello, i'm a bot!");
 });
 
 //get port from environment and store in Express.

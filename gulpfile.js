@@ -18,7 +18,8 @@ var config = {
         build: ['config.js', 'src/public/*'],
         typescript: [
             //'src/typings/**/*.d.ts',
-            'src/app/**/*.ts'
+            'src/app/**/*.ts',
+            "!src/_all.d.ts"
         ],
         sass: 'src/sass/**/*.scss',
         templates: 'src/views/*.jade',
@@ -33,7 +34,7 @@ var config = {
         css: 'dist/css/',
         js: 'dist/js/',
         fonts: 'dist/fonts/',
-        typescript: 'dist/app/',
+        typescript: '.',
         templates: 'dist/app/views/',
         messages: 'dist/messages/',
         images: {

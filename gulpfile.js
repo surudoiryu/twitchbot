@@ -19,7 +19,7 @@ var config = {
         typescript: [
             //'src/typings/**/*.d.ts',
             'src/app/**/*.ts',
-            "!src/_all.d.ts"
+            "!src/app/_all.d.ts",
         ],
         sass: 'src/sass/**/*.scss',
         templates: 'src/views/*.jade',
@@ -45,8 +45,33 @@ var config = {
     },
     typescript: {
         project: ts.createProject('tsconfig.json', { /*sortOutput: true*/ })
+    },
+    www_source: {
+        typescript: 'src/www/**/*.ts'
+    },
+    www_dest: {
+        typescript: 'bin'
     }
 };
+
+
+//region Application Typescript (Angular2)
+gulp.task('www_typescript', function(){
+    return gulp
+        .src(config.www_source.typescript)
+        .pipe(gulpSlash())
+        .pipe(debug({ title: 'WWW Typescript:' }))
+        .pipe(config.typescript.project( undefined, {
+            error: function (error) {
+                util.log('TSError:', error.message);
+            }
+        }))
+        .pipe(gulp.dest(config.www_dest.typescript));
+});
+gulp.task('www_typescript:watch', function() {
+    gulp.watch(config.www_source.typescript, ['www_typescript']);
+});
+//endregion
 
 //region Application Typescript (Angular2)
 gulp.task('typescript', ['jade'], function(){
@@ -156,6 +181,7 @@ gulp.task('vendor', function () {
 
 
 gulp.task('default', [
+    'www_typescript',
     'typescript',
     'images',
     'jade',
@@ -164,6 +190,7 @@ gulp.task('default', [
 ]);
 
 gulp.task('watch', [
+    'www_typescript',
     'typescript',
     'sass',
     'jade',

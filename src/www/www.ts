@@ -10,6 +10,7 @@ var app = require("../app");
 var debug = require("debug")("express:server");
 var http = require("http");
 var tmi = require("tmi.js");
+var sqldb = require("fs.js");
 
 class TwitchBot {
 

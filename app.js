@@ -5,7 +5,7 @@ var express = require("express");
 var path = require("path");
 var indexRoute = require("./routes/index");
 /**
- * The server.
+ * The server
  *
  * @class Server
  */

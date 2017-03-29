@@ -23,10 +23,10 @@ class TwitchBot {
       reconnect: true
     },
     identity: {
-      username: process.env.TWITCH_USER, // Twitchname of your bot (create a profile)
-      password: process.env.TWITCH_PASS // Get your Token here: http://twitchapps.com/tmi/
+      username: process.env.TWITCH_USERNAME, // Twitchname of your bot (create a profile)
+      password: process.env.TWITCH_OATHKEY // Get your Token here: http://twitchapps.com/tmi/
     },
-    channels: [ "#" + process.env.TWITCH_CHANNEL ]
+    channels: [ "#" + process.env.TWITCH_JOINCHANNEL ]
   }
   botClient: any = new tmi.client(this.tmiOptions);
 

@@ -1,10 +1,20 @@
 doctype html
 html(lang="en")
-    head
-        title= "Twitch Bot - panels"
-        link(href='/css/style.css', rel='stylesheet', type='text/css')
-    body
-        div.left.column#chatwindow
-        div.right.column#wrapper
-            div.top.row#eventwindow
-            div.bottom.row#actionswindow
+  head
+    title= "Twitch Bot - panels"
+    link(href='/css/style.css', rel='stylesheet', type='text/css')
+  body
+    div.left.column#chatwindow
+    div.right.column#wrapper
+      div.top.row#eventwindow
+      div.bottom.row#actionswindow
+    script(src='https://code.jquery.com/jquery-1.10.2.js')
+    script(src='/socket.io/socket.io.js')
+    script(type="text/javascript").
+      var socket = io();
+      socket.on('message', (data, type) => {
+        if( type == "event" ) {
+          document.getElementById('eventwindow');
+        }
+        console.log(data);
+      })

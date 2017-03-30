@@ -1,37 +1,50 @@
-class Connect extends TwitchBot
-{
-    connnectBot(){
-        this.botClient.connect().then(function(data) {
-            // data returns [server, port]
-            // Connected with success, start the listeners.
-            this.userListener();
-            this.hostListener();
-        }).catch(function(err) {
-            console.log("could not connect to twitch irc");
-        });
+import { Chatting } from './chatting';
 
-        this.botClient.on('connected', function(address, port){ 
-            console.log("bot is connected to: "+this.tmiOptions.channels[0]);
-            this.botClient.action(this.tmiOptions.channels[0], "Hello, i'm a bot!");
-        });
+export class Connect {
+
+    constructor(private botClient: any, private twitchOptions: any){ };
+
+    Connect() {
+      this.botClient.connect().then( (data) => {
+        // data returns [server, port]
+        // Connected with success, start the listeners.
+        console.log("Connected to Twitch");
+        this.userListener();
+        this.hostListener();
+        this.chatListener();
+      }).catch( (err) => {
+        console.log("could not connect to twitch irc");
+      });
+
+      this.botClient.on('connected', (address, port) => {
+        console.log("bot is connected to: " + this.twitchOptions.channels[0]);
+        this.botClient.action(this.twitchOptions.channels[0], "Hello, i'm a bot!");
+      });
     }
-    userListener(){
-        this.botClient.on("join", function (channel, username, self) {
-            console.log(username+" entered the stream.");
-        });
-        this.botClient.on("part", function (channel, username, self) {
-            console.log(username+" left the stream.");
-        });
+
+    userListener() {
+      console.log("User listeners added");
+      this.botClient.on("join", (channel, username, self) => {
+          console.log(username + " entered the stream.");
+      });
+      this.botClient.on("part", (channel, username, self) => {
+          console.log(username + " left the stream.");
+      });
     }
-    hostListener(){
-        this.botClient.on("hosted", function (channel, username, self) {
-            console.log(username+" hosted our stream.");
-        });
+
+    hostListener() {
+      console.log("Host listeners added");
+      this.botClient.on("hosted", (channel, username, self) => {
+        console.log(username + " hosted our stream.");
+      });
     }
-    chatListener(){
-        this.botClient.on("chat", function(channel, username, message, self){
-            console.log(username+" said: "+message);
-            this.Chatting.parseText(username, message);
-        });
+
+    chatListener() {
+      console.log("Chat listeners added");
+      this.botClient.on("chat", (channel, userData, message, self) => {
+        let chat = new Chatting(this.botClient, this.twitchOptions);
+        chat.parseText(userData, message);
+      });
     }
+
 }

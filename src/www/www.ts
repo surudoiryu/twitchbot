@@ -23,9 +23,7 @@ class TwitchBot {
   private tmiOptions: any = new Settings().tmiOptions();
 
   constructor() {
-    console.log("Starting the bot, hold on...");
-    let connect = new Connect( new tmi.client(this.tmiOptions), this.tmiOptions );
-    connect.Connect();
+
 
     //get port from environment and store in Express.
     this.port = this.normalizePort(process.env.PORT || 8080);
@@ -77,11 +75,22 @@ class TwitchBot {
       debug("Listening on " + bind);
     });
 
+    console.log("Starting the bot, hold on...");
+    let connect = new Connect( new tmi.client(this.tmiOptions), this.tmiOptions, this );
+    connect.Connect();
 
     this.io.on('connection', (client) => {
       console.log('socket tunnel created with id:'+client.id);
-      client.emit('message', 'hellooo from the serverrrr sideeeeee', 'event');
+      client.emit('message', 'Twitch bot panel initialized.', 'event');
     });
+  }
+
+  getSocket(): any {
+    return this.io;
+  }
+
+  getServer(): any {
+    return this.server;
   }
 
   /**

@@ -24,6 +24,9 @@
 #chatwindow {
 	background-color: #555555;
 	border:1px solid #ffffff;
+	padding: 15px;
+	color: #fff;
+	overflow-y: auto;
 }
 
 #eventwindow {
@@ -34,4 +37,7 @@
 #actionswindow {
 	background-color: #555555;
 	border:1px solid #ffffff;
+	padding: 15px;
+	color: #fff;
+	overflow-y: auto;
 }

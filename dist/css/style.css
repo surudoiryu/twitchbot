@@ -20,7 +20,10 @@
 
 #chatwindow {
   background-color: #555555;
-  border: 1px solid #ffffff; }
+  border: 1px solid #ffffff;
+  padding: 15px;
+  color: #fff;
+  overflow-y: auto; }
 
 #eventwindow {
   background-color: #00FF00;
@@ -28,6 +31,9 @@
 
 #actionswindow {
   background-color: #555555;
-  border: 1px solid #ffffff; }
+  border: 1px solid #ffffff;
+  padding: 15px;
+  color: #fff;
+  overflow-y: auto; }
 
 /*# sourceMappingURL=style.css.map */

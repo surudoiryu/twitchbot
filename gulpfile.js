@@ -44,7 +44,7 @@ var config = {
         }
     },
     typescript: {
-        project: ts.createProject('tsconfig.json', { /*sortOutput: true*/ })
+        project: ts.createProject('tsconfig.json', { })
     },
     www_source: {
         typescript: 'src/www/**/*.ts'
@@ -181,17 +181,17 @@ gulp.task('vendor', function () {
 
 
 gulp.task('default', [
-    'www_typescript',
-    'typescript',
+    //'typescript',
     'images',
     'jade',
     'sass',
-    'messages'
+    'messages',
+    'www_typescript'
 ]);
 
 gulp.task('watch', [
     'www_typescript',
-    'typescript',
+    //'typescript',
     'sass',
     'jade',
     'messages',

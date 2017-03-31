@@ -82,7 +82,7 @@ class Server {
     router.get("/", index.index.bind(index.index));
 
     router.get('/test', function(req, res) {
-      res.send('im the test page!'); 
+      res.send('im the test page!');
     });
 
     //use router middleware
@@ -91,4 +91,4 @@ class Server {
 }
 
 var server = Server.bootstrap();
-export = server.app;
+module.exports = server.app;

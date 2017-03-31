@@ -1,5 +1,6 @@
 /// <reference path="_all.d.ts" />
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var bodyParser = require("body-parser");
 var express = require("express");
 var path = require("path");

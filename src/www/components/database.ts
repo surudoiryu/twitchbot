@@ -1,8 +1,8 @@
-class Database extends TwitchBot
+class Database
 {
     create() {
-        var file = process.env.DB_DIR + "/" + this.tmiOptions.channels[0] + ".db";
-        var exists = sqldb.existsSync(file);
+        //var file = process.env.DB_DIR + "/" + this.tmiOptions.channels[0] + ".db";
+        /*var exists = sqldb.existsSync(file);
         if(!exists) {
             try {
                 console.log("Creating DB file.");
@@ -11,10 +11,10 @@ class Database extends TwitchBot
                 console.log("DB file couldn't be created!");
             }
         }
+*/
 
-                
-        var sqlite3 = require("sqlite3").verbose();
-        var db = new sqlite3.Database(file);
+  //      var sqlite3 = require("sqlite3").verbose();
+    //    var db = new sqlite3.Database(file);
         /*
         db.serialize(function() {
             if(!exists) {
@@ -23,17 +23,17 @@ class Database extends TwitchBot
         }
         */
     }
-    /*
+
     connnect() {
-        
+
     }
     addMinute() {
-        
+
     }
     AddPoint() {
-        
+
     }
     AddPoints(points:number) {
-        
-    }*/
+
+    }
 }
